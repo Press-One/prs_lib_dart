@@ -1,8 +1,8 @@
 name: prs_lib_dart
 description: prs lib.
-version: 0.0.1
+version: 0.0.2
 author: zhangpeng <zhangpengtongxue@gmail.com>
-homepage: https://press.one
+homepage: https://github.com/Press-One/prs_lib_dart
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
