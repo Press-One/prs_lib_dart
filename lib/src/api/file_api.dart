@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:prs_lib_dart/src/http_manager.dart';
 import 'package:prs_lib_dart/src/config.dart';
 
-class File {
+class FileApi {
   static getFiles(String address,
       {int offset = 0, int limit = 1, String type}) async {
     var url =

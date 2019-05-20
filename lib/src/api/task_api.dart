@@ -3,7 +3,7 @@ import 'package:prs_lib_dart/src/http_manager.dart';
 import 'dart:convert';
 import 'package:prs_lib_dart/src/config.dart';
 
-class Task {
+class TaskApi {
   static getMyTasks({int offset = 0, int limit = 10}) async {
     var res = await httpManager.netFetch(
         "${Config.host()}/tasks/accepted?offset=$offset&limit=$limit",

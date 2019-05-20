@@ -5,8 +5,7 @@ import 'package:flutter/services.dart';
 
 void main() {
   test('keystore', () async {
-    Config.isDebug = true;
-    final res = await Keystore.loginByEmail('foundation@163.com', '123123');
+    final res = await KeystoreApi.loginByEmail('foundation@163.com', '123123');
     print(res.data);
   });
 

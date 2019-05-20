@@ -3,9 +3,9 @@ import 'package:prs_lib_dart/src/http_manager.dart';
 import 'package:prs_utility_dart/prs_utility_dart.dart';
 import 'dart:convert';
 import 'package:prs_lib_dart/src/config.dart';
-import 'sign.dart';
+import 'sign_api.dart';
 
-class Contract {
+class ContractApi {
   static getContractTemplates(String type) async {
     var res = await httpManager.netFetch(
         "${Config.host()}/contracts/templates?type=$type",
@@ -35,7 +35,7 @@ class Contract {
     if (privateKey != null) {
       signature = await SignUtility.signHash(hash, privateKey);
     } else if (token != null) {
-      final res = await Sign.signBlockData(data);
+      final res = await SignApi.signBlockData(data);
       if (res != null && res.result) {
         signature = res.data['signature'] as String;
       }
@@ -64,7 +64,7 @@ class Contract {
     if (privateKey != null) {
       signature = await SignUtility.signHash(hash, privateKey);
     } else if (token != null) {
-      final res = await Sign.signBlockData(data);
+      final res = await SignApi.signBlockData(data);
       if (res != null && res.result) {
         signature = res.data['signature'] as String;
       }

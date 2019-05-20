@@ -4,7 +4,7 @@ import 'package:prs_utility_dart/prs_utility_dart.dart';
 import 'dart:convert';
 import 'package:prs_lib_dart/src/config.dart';
 
-class Keystore {
+class KeystoreApi {
   static loginByEmail(email, password) async {
     final passwordHash = SignUtility.hashPassword(email, password);
 

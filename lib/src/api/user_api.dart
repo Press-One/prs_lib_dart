@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:prs_lib_dart/src/http_manager.dart';
-import 'package:prs_utility_dart/prs_utility_dart.dart';
 import 'dart:convert';
 import 'package:prs_lib_dart/src/config.dart';
 
-class User {
+class UserApi {
   static getUser(String address) async {
     var res = await httpManager.netFetch("${Config.host()}/users/$address",
         null, null, new Options(method: "get"));

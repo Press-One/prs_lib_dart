@@ -3,7 +3,7 @@ import 'package:prs_lib_dart/src/http_manager.dart';
 import 'dart:convert';
 import 'package:prs_lib_dart/src/config.dart';
 
-class Sign {
+class SignApi {
   static signBlockData(Map<String, dynamic> data) async {
     Map payload = {
       'payload': {

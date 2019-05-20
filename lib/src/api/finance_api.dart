@@ -3,7 +3,7 @@ import 'package:prs_lib_dart/src/http_manager.dart';
 import 'dart:convert';
 import 'package:prs_lib_dart/src/config.dart';
 
-class Finance {
+class FinanceApi {
   static balance() async {
     return httpManager.netFetch("${Config.host()}/finance/wallet", null, null,
         new Options(method: "get"));
