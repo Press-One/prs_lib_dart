@@ -1,4 +1,4 @@
-import 'config.dart';
+import 'prs_config.dart';
 
 class PRSLib {
   static configure(
@@ -8,19 +8,15 @@ class PRSLib {
       String privateKey,
       String address}) {
     if (isDebug != null) {
-      Config.isDebug = isDebug;
+      PRSConfig.isDebug = isDebug;
     }
     if (env != null) {
-      Config.env = env;
+      PRSConfig.env = env;
     }
     if (token != null) {
-      Config.token = token;
-    }
-    if (privateKey != null) {
-      Config.privateKey = privateKey;
-    }
-    if (address != null) {
-      Config.address = address;
+      PRSConfig.token = token;
+      PRSConfig.privateKey = privateKey;
+      PRSConfig.address = address;
     }
   }
 }

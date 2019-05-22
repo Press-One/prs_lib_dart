@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:prs_lib_dart/src/config.dart';
+import 'package:prs_lib_dart/src/prs_config.dart';
 
 class LogsInterceptors extends InterceptorsWrapper {
   @override
   onRequest(RequestOptions options) {
-    if (Config.isDebug) {
+    if (PRSConfig.isDebug) {
       print("requset url: ${options.path}");
       print('requset header: ' + options.headers.toString());
       if (options.data != null) {
@@ -16,17 +16,17 @@ class LogsInterceptors extends InterceptorsWrapper {
 
   @override
   onResponse(Response response) {
-    if (Config.isDebug) {
+    if (PRSConfig.isDebug) {
       if (response != null) {
         print('response parameters: ' + response.toString());
       }
     }
-    return response; // continue
+    return response;
   }
 
   @override
   onError(DioError err) {
-    if (Config.isDebug) {
+    if (PRSConfig.isDebug) {
       print('request error: ' + err.toString());
       print('request error message: ' + err.response?.toString() ?? "");
     }

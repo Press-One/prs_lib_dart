@@ -1,6 +1,6 @@
 name: prs_lib_dart
 description: prs lib.
-version: 0.0.3
+version: 0.0.3+7
 author: zhangpeng <zhangpengtongxue@gmail.com>
 homepage: https://github.com/Press-One/prs_lib_dart
 
@@ -11,8 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   prs_utility_dart: ^0.0.1
-  dio: ^2.1.3
-  http: ^0.12.0+1
+  dio: ^2.1.4
+  http: ^0.12.0+2
   connectivity: ^0.4.3+1
   event_bus: ^1.0.3
 

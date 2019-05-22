@@ -1,6 +1,6 @@
 enum Environment { prod, dev }
 
-class Config {
+class PRSConfig {
   static bool isDebug = false;
   static Environment env = Environment.prod;
   static String token;

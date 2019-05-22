@@ -1,6 +1,7 @@
 library prs_lib_dart;
 
 export 'src/prs_lib.dart';
+export 'src/prs_config.dart';
 export 'src/network_event.dart';
 export 'src/api/block_api.dart';
 export 'src/api/contract_api.dart';

@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:prs_lib_dart/src/http_manager.dart';
 import 'dart:convert';
-import 'package:prs_lib_dart/src/config.dart';
+import 'package:prs_lib_dart/src/prs_config.dart';
 
 class TaskApi {
   static getMyTasks({int offset = 0, int limit = 10}) async {
     var res = await httpManager.netFetch(
-        "${Config.host()}/tasks/accepted?offset=$offset&limit=$limit",
+        "${PRSConfig.host()}/tasks/accepted?offset=$offset&limit=$limit",
         null,
         null,
         new Options(method: "get"));
@@ -15,7 +15,7 @@ class TaskApi {
 
   static getUnacceptedTasks({int offset = 0, int limit = 10}) async {
     var res = await httpManager.netFetch(
-        "${Config.host()}/tasks?filter=UNACCEPTED_POOL&offset=$offset&limit=$limit",
+        "${PRSConfig.host()}/tasks?filter=UNACCEPTED_POOL&offset=$offset&limit=$limit",
         null,
         null,
         new Options(method: "get"));
@@ -23,14 +23,14 @@ class TaskApi {
   }
 
   static getTaskDetail(int taskId) async {
-    var res = await httpManager.netFetch("${Config.host()}/tasks/$taskId", null,
-        null, new Options(method: "get"));
+    var res = await httpManager.netFetch("${PRSConfig.host()}/tasks/$taskId",
+        null, null, new Options(method: "get"));
     return res;
   }
 
   static acceptTask(int taskId) async {
     var res = await httpManager.netFetch(
-        "${Config.host()}/tasks/$taskId/accepted",
+        "${PRSConfig.host()}/tasks/$taskId/accepted",
         null,
         null,
         new Options(method: "post"));
@@ -42,7 +42,7 @@ class TaskApi {
       'payload': {'status': 'FINISHED'}
     };
     var res = await httpManager.netFetch(
-        "${Config.host()}/tasks/$taskId/accepted",
+        "${PRSConfig.host()}/tasks/$taskId/accepted",
         json.encode(payload),
         null,
         new Options(method: "put"));
@@ -54,7 +54,7 @@ class TaskApi {
       'payload': {'remark': remark}
     };
     var res = await httpManager.netFetch(
-        "${Config.host()}/tasks/$taskId/accepted",
+        "${PRSConfig.host()}/tasks/$taskId/accepted",
         json.encode(payload),
         null,
         new Options(method: "put"));

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:prs_lib_dart/src/http_manager.dart';
 import 'package:prs_utility_dart/prs_utility_dart.dart';
 import 'dart:convert';
-import 'package:prs_lib_dart/src/config.dart';
+import 'package:prs_lib_dart/src/prs_config.dart';
 
 class KeystoreApi {
   static loginByEmail(email, password) async {
@@ -13,7 +13,7 @@ class KeystoreApi {
     };
 
     var res = await httpManager.netFetch(
-        "${Config.host()}/keystore/login/email",
+        "${PRSConfig.host()}/keystore/login/email",
         json.encode(params),
         null,
         new Options(method: "post"));
@@ -26,7 +26,7 @@ class KeystoreApi {
     };
 
     var res = await httpManager.netFetch(
-        "${Config.host()}/keystore/login/phone",
+        "${PRSConfig.host()}/keystore/login/phone",
         json.encode(params),
         null,
         new Options(method: "post"));
@@ -37,8 +37,11 @@ class KeystoreApi {
     Map payload = {
       'payload': {'phone': phone, 'type': type}
     };
-    var res = await httpManager.netFetch("${Config.host()}/sendMessageByPhone",
-        json.encode(payload), null, new Options(method: "post"));
+    var res = await httpManager.netFetch(
+        "${PRSConfig.host()}/sendMessageByPhone",
+        json.encode(payload),
+        null,
+        new Options(method: "post"));
     return res;
   }
 
@@ -46,8 +49,11 @@ class KeystoreApi {
     Map payload = {
       'payload': {'email': email}
     };
-    var res = await httpManager.netFetch("${Config.host()}/sendMessageByEmail",
-        json.encode(payload), null, new Options(method: "post"));
+    var res = await httpManager.netFetch(
+        "${PRSConfig.host()}/sendMessageByEmail",
+        json.encode(payload),
+        null,
+        new Options(method: "post"));
     return res;
   }
 
@@ -64,7 +70,7 @@ class KeystoreApi {
       }
     };
     var res = await httpManager.netFetch(
-        "${Config.host()}/keystore/signup/email",
+        "${PRSConfig.host()}/keystore/signup/email",
         json.encode(payload),
         null,
         new Options(method: "post"));
@@ -82,7 +88,7 @@ class KeystoreApi {
       }
     };
     var res = await httpManager.netFetch(
-        "${Config.host()}/keystore/signup/phone",
+        "${PRSConfig.host()}/keystore/signup/phone",
         json.encode(payload),
         null,
         new Options(method: "post"));
@@ -102,7 +108,7 @@ class KeystoreApi {
       }
     };
     var res = await httpManager.netFetch(
-        "${Config.host()}/keystore/password",
+        "${PRSConfig.host()}/keystore/password",
         json.encode(payload),
         {"Content-Type": "application/json"},
         new Options(method: "put"));
@@ -120,7 +126,7 @@ class KeystoreApi {
       }
     };
     var res = await httpManager.netFetch(
-        "${Config.host()}/keystore/password",
+        "${PRSConfig.host()}/keystore/password",
         json.encode(payload),
         {"Content-Type": "application/json"},
         new Options(method: "put"));

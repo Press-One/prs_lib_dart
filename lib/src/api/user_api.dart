@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:prs_lib_dart/src/http_manager.dart';
 import 'dart:convert';
-import 'package:prs_lib_dart/src/config.dart';
+import 'package:prs_lib_dart/src/prs_config.dart';
 
 class UserApi {
   static getUser(String address) async {
-    var res = await httpManager.netFetch("${Config.host()}/users/$address",
+    var res = await httpManager.netFetch("${PRSConfig.host()}/users/$address",
         null, null, new Options(method: "get"));
     return res;
   }
@@ -22,7 +22,7 @@ class UserApi {
       data['bio'] = bio;
     }
     Map payload = {'payload': data};
-    var res = await httpManager.netFetch("${Config.host()}/users",
+    var res = await httpManager.netFetch("${PRSConfig.host()}/users",
         json.encode(payload), null, new Options(method: "post"));
     return res;
   }
@@ -31,7 +31,7 @@ class UserApi {
     Map payload = {
       'payload': {'avatar': avatar}
     };
-    var res = await httpManager.netFetch("${Config.host()}/users/avatar",
+    var res = await httpManager.netFetch("${PRSConfig.host()}/users/avatar",
         json.encode(payload), null, new Options(method: "post"));
     return res;
   }

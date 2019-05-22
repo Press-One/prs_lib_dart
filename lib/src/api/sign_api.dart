@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:prs_lib_dart/src/http_manager.dart';
 import 'dart:convert';
-import 'package:prs_lib_dart/src/config.dart';
+import 'package:prs_lib_dart/src/prs_config.dart';
 
 class SignApi {
   static signBlockData(Map<String, dynamic> data) async {
@@ -10,7 +10,7 @@ class SignApi {
         'data': data,
       }
     };
-    var res = await httpManager.netFetch("${Config.host()}/sign",
+    var res = await httpManager.netFetch("${PRSConfig.host()}/sign",
         json.encode(payload), null, new Options(method: "post"));
     return res;
   }
@@ -22,7 +22,7 @@ class SignApi {
         'path': path,
       }
     };
-    var res = await httpManager.netFetch("${Config.host()}/requestSign",
+    var res = await httpManager.netFetch("${PRSConfig.host()}/requestSign",
         json.encode(payload), null, new Options(method: "post"));
     return res;
   }

@@ -2,13 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:prs_lib_dart/src/http_manager.dart';
 import 'package:prs_utility_dart/prs_utility_dart.dart';
 import 'dart:convert';
-import 'package:prs_lib_dart/src/config.dart';
+import 'package:prs_lib_dart/src/prs_config.dart';
 import 'sign_api.dart';
 
 class ContractApi {
   static getContractTemplates(String type) async {
     var res = await httpManager.netFetch(
-        "${Config.host()}/contracts/templates?type=$type",
+        "${PRSConfig.host()}/contracts/templates?type=$type",
         null,
         null,
         new Options(method: "get"));
@@ -17,7 +17,7 @@ class ContractApi {
 
   static getContracts({int offset = 0, int limit = 10}) async {
     var res = await httpManager.netFetch(
-        "${Config.host()}/contracts?offset=$offset&limit=$limit",
+        "${PRSConfig.host()}/contracts?offset=$offset&limit=$limit",
         null,
         null,
         new Options(method: "get"));
@@ -28,8 +28,8 @@ class ContractApi {
     String codeHash = SignUtility.keecak256String(code);
     final data = {'file_hash': codeHash};
     final hash = SignUtility.calcObjectHash(data);
-    var privateKey = Config.privateKey;
-    var token = Config.token;
+    var privateKey = PRSConfig.privateKey;
+    var token = PRSConfig.token;
 
     String signature;
     if (privateKey != null) {
@@ -44,21 +44,21 @@ class ContractApi {
     Map payload = {
       'payload': {'code': code, 'signature': signature}
     };
-    var res = await httpManager.netFetch("${Config.host()}/contracts",
+    var res = await httpManager.netFetch("${PRSConfig.host()}/contracts",
         json.encode(payload), null, new Options(method: "post"));
     return res;
   }
 
   static bindContract(String contractRId, String fileRId) async {
-    final address = Config.address;
+    final address = PRSConfig.address;
     final data = {
       'beneficiary_address': address,
       'content_id': fileRId,
       'contract_id': contractRId
     };
     final hash = SignUtility.calcObjectHash(data);
-    var privateKey = Config.privateKey;
-    var token = Config.token;
+    var privateKey = PRSConfig.privateKey;
+    var token = PRSConfig.token;
 
     String signature;
     if (privateKey != null) {
@@ -74,7 +74,7 @@ class ContractApi {
       'payload': {'fileRId': fileRId, 'signature': signature}
     };
     var res = await httpManager.netFetch(
-        "${Config.host()}/contracts/$contractRId/bind",
+        "${PRSConfig.host()}/contracts/$contractRId/bind",
         json.encode(payload),
         null,
         new Options(method: "post"));
@@ -83,7 +83,7 @@ class ContractApi {
 
   static getOrders({int offset = 0, int limit = 10}) async {
     var res = await httpManager.netFetch(
-        "${Config.host()}/orders?offset=$offset&limit=$limit",
+        "${PRSConfig.host()}/orders?offset=$offset&limit=$limit",
         null,
         null,
         new Options(method: "get"));
@@ -92,7 +92,7 @@ class ContractApi {
 
   static getContractOrders(String rId, {int offset = 0, int limit = 10}) async {
     var res = await httpManager.netFetch(
-        "${Config.host()}/contracts/$rId/orders?offset=$offset&limit=$limit",
+        "${PRSConfig.host()}/contracts/$rId/orders?offset=$offset&limit=$limit",
         null,
         null,
         new Options(method: "get"));

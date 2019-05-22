@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'dart:convert';
-import 'package:prs_lib_dart/src/config.dart';
+import 'package:prs_lib_dart/src/prs_config.dart';
 import 'package:prs_utility_dart/prs_utility_dart.dart';
 
 class TokenInterceptors extends InterceptorsWrapper {
@@ -18,10 +18,10 @@ class TokenInterceptors extends InterceptorsWrapper {
         options.path.contains('tasks') ||
         options.path.contains('contracts') ||
         options.path.contains('orders')) {
-      final address = Config.address;
+      final address = PRSConfig.address;
       if (address != null) {
-        var token = Config.token;
-        var privateKey = Config.token;
+        var token = PRSConfig.token;
+        var privateKey = PRSConfig.privateKey;
         if (privateKey != null) {
           final index = options.path.indexOf('api/v2');
           final path = options.path.substring(index + 6);
