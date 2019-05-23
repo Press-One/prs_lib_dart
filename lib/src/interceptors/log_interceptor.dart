@@ -28,7 +28,7 @@ class LogsInterceptors extends InterceptorsWrapper {
   onError(DioError err) {
     if (PRSConfig.isDebug) {
       print('request error: ' + err.toString());
-      print('request error message: ' + err.response?.toString() ?? "");
+      print('request error message: ' + err.message ?? "");
     }
     return err;
   }

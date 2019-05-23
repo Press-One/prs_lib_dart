@@ -43,34 +43,34 @@ class HttpManager {
       option.headers = headers;
     }
 
-    resultError(DioError e) {
-      Response errorResponse;
-      if (e.response != null) {
-        errorResponse = e.response;
-      } else {
-        errorResponse = new Response(statusCode: 666);
-      }
-      if (e.type == DioErrorType.CONNECT_TIMEOUT ||
-          e.type == DioErrorType.RECEIVE_TIMEOUT) {
-        errorResponse.statusCode = NetworkStatusCode.TIMEOUT;
-      }
-      return new PRSResponse(
-          NetworkEvent.fireErrorEvent(
-              errorResponse.statusCode, errorResponse.toString(), noFire),
-          false,
-          errorResponse.statusCode);
-    }
-
     Response response;
     try {
       response = await _dio.request(url, data: params, options: option);
     } on DioError catch (e) {
-      return resultError(e);
+      return _resultError(e, noFire);
     }
     if (response.data is DioError) {
-      return resultError(response.data);
+      return _resultError(response.data, noFire);
     }
     return response.data;
+  }
+
+  _resultError(DioError e, bool noFire) {
+    Response errorResponse;
+    if (e.response != null) {
+      errorResponse = e.response;
+    } else {
+      errorResponse = new Response(statusCode: 666);
+    }
+    if (e.type == DioErrorType.CONNECT_TIMEOUT ||
+        e.type == DioErrorType.RECEIVE_TIMEOUT) {
+      errorResponse.statusCode = NetworkStatusCode.TIMEOUT;
+    }
+    return new PRSResponse(
+        NetworkEvent.fireErrorEvent(
+            errorResponse.statusCode, errorResponse.toString(), noFire),
+        false,
+        errorResponse.statusCode);
   }
 }
 
