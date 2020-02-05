@@ -1,13 +1,12 @@
 import 'dart:collection';
 import 'package:dio/dio.dart';
-import 'package:prs_lib_dart/src/network_status_code.dart';
-import 'package:prs_lib_dart/src/network_event.dart';
-import 'package:prs_lib_dart/src/prs_response.dart';
+import 'package:prs_lib_dart/src/net_event.dart';
+import 'package:prs_lib_dart/src/net_response.dart';
 import 'package:prs_lib_dart/src/interceptors/error_interceptor.dart';
 import 'package:prs_lib_dart/src/interceptors/header_interceptor.dart';
 import 'package:prs_lib_dart/src/interceptors/log_interceptor.dart';
-import 'package:prs_lib_dart/src/interceptors/response_interceptor.dart';
 import 'package:prs_lib_dart/src/interceptors/token_interceptor.dart';
+import 'package:prs_lib_dart/src/net_status_code.dart';
 
 class HttpManager {
   static const CONTENT_TYPE_JSON = "application/json";
@@ -25,8 +24,6 @@ class HttpManager {
     _dio.interceptors.add(new LogsInterceptors());
 
     _dio.interceptors.add(new ErrorInterceptors(_dio));
-
-    _dio.interceptors.add(new ResponseInterceptors());
   }
 
   netFetch(url, params, Map<String, dynamic> header, Options option,
@@ -42,17 +39,23 @@ class HttpManager {
       option = new Options(method: "get");
       option.headers = headers;
     }
-
     Response response;
     try {
       response = await _dio.request(url, data: params, options: option);
     } on DioError catch (e) {
       return _resultError(e, noFire);
     }
-    if (response.data is DioError) {
-      return _resultError(response.data, noFire);
+
+    if (response.redirects != null &&
+        response.redirects.isNotEmpty &&
+        response.redirects[0].location != null &&
+        response.redirects[0].location.path == '/hub/login') {
+      return NetResponse(NetEvent.fireErrorEvent(403, '', noFire), false, 403,
+          headers: response.headers);
     }
-    return response.data;
+
+    return new NetResponse(response.data, true, response.statusCode,
+        headers: response.headers);
   }
 
   _resultError(DioError e, bool noFire) {
@@ -64,13 +67,11 @@ class HttpManager {
     }
     if (e.type == DioErrorType.CONNECT_TIMEOUT ||
         e.type == DioErrorType.RECEIVE_TIMEOUT) {
-      errorResponse.statusCode = NetworkStatusCode.TIMEOUT;
+      errorResponse.statusCode = NetStatusCode.TIMEOUT;
     }
-    return new PRSResponse(
-        NetworkEvent.fireErrorEvent(
-            errorResponse.statusCode, errorResponse.toString(), noFire),
-        false,
-        errorResponse.statusCode);
+    NetEvent.fireErrorEvent(
+        errorResponse.statusCode, errorResponse.toString(), noFire);
+    return new NetResponse(errorResponse, false, errorResponse.statusCode);
   }
 }
 

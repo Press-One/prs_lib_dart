@@ -1,4 +1,4 @@
-class NetworkStatusCode {
+class NetStatusCode {
   static const ERROR = -1;
 
   static const TIMEOUT = -2;

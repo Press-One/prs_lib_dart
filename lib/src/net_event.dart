@@ -1,6 +1,6 @@
 import 'package:event_bus/event_bus.dart';
 
-class NetworkEvent {
+class NetEvent {
   static final EventBus eventBus = new EventBus();
   static fireErrorEvent(code, message, noFire) {
     if (noFire) {

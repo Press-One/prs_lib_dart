@@ -9,10 +9,10 @@ environment:
 dependencies: 
   flutter:
     sdk: flutter 
-  prs_utility_dart: ^0.0.4
-  dio: ^2.1.4
-  http: ^0.12.0+2
-  event_bus: ^1.0.3 
+  prs_utility_dart: ^0.1.0
+  dio: ^3.0.8
+  http: ^0.12.0+4
+  event_bus: ^1.1.1
   connectivity: ^0.4.6+2
 
 dev_dependencies:
