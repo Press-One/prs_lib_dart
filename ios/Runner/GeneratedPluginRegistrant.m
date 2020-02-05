@@ -3,7 +3,12 @@
 //
 
 #import "GeneratedPluginRegistrant.h"
-#import <connectivity/ConnectivityPlugin.h>
+
+#if __has_include(<connectivity/FLTConnectivityPlugin.h>)
+#import <connectivity/FLTConnectivityPlugin.h>
+#else
+@import connectivity;
+#endif
 
 @implementation GeneratedPluginRegistrant
 

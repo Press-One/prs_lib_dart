@@ -22,7 +22,9 @@ class TokenInterceptors extends InterceptorsWrapper {
       if (address != null) {
         var token = PRSConfig.token;
         var privateKey = PRSConfig.privateKey;
-        if (privateKey != null) {
+        if (token != null) {
+          options.headers["Authorization"] = "Bearer $token";
+        } else if (privateKey != null) {
           final index = options.path.indexOf('api/v2');
           final path = options.path.substring(index + 6);
           var hash = SignUtility.calcRequestHash(
@@ -34,8 +36,6 @@ class TokenInterceptors extends InterceptorsWrapper {
           options.headers["X-Po-Auth-Address"] = address;
           options.headers["X-Po-Auth-Sig"] = signture;
           options.headers["X-Po-Auth-Msghash"] = hash;
-        } else if (token != null) {
-          options.headers["Authorization"] = "Bearer $token";
         }
       }
     }

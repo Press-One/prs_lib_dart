@@ -29,14 +29,23 @@ class FinanceApi {
     return res;
   }
 
-  static withdraw(String amount) async {
+  static withdraw(String amount, {String phone, String verifyCode}) async {
     Map payload = {
       'payload': {
         'amount': amount,
       }
     };
+    Map<String, dynamic> header;
+    if (phone != null && verifyCode != null) {
+      header = {
+        "x-po-auth-type": "phone",
+        "x-po-auth-phone": phone,
+        "x-po-auth-code": verifyCode
+      };
+    }
+
     var res = await httpManager.netFetch("${PRSConfig.host()}/finance/withdraw",
-        json.encode(payload), null, new Options(method: "post"));
+        json.encode(payload), header, new Options(method: "post"));
     return res;
   }
 }

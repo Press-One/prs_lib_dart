@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:prs_lib_dart/prs_lib_dart.dart';
@@ -6,6 +7,7 @@ import 'package:prs_lib_dart/src/prs_config.dart';
 import 'package:prs_lib_dart/src/prs_lib.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   test('keystore', () async {
     final res = await KeystoreApi.loginByEmail('foundation@163.com', '123123');
     print(res.data);
