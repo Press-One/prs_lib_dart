@@ -17,6 +17,9 @@ class PRSLib {
       PRSConfig.token = token;
       PRSConfig.privateKey = privateKey;
       PRSConfig.address = address;
+    } else {
+      PRSConfig.privateKey = privateKey;
+      PRSConfig.address = address;
     }
   }
 }

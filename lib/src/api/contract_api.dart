@@ -25,7 +25,7 @@ class ContractApi {
   }
 
   static createContract(String code) async {
-    String codeHash = SignUtility.keecak256String(code);
+    String codeHash = SignUtility.sha256String(code);
     final data = {'file_hash': codeHash};
     final hash = SignUtility.calcObjectHash(data);
     var privateKey = PRSConfig.privateKey;

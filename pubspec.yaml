@@ -1,6 +1,6 @@
 name: prs_lib_dart
 description: prs lib.
-version: 0.0.5+5
+version: 0.0.5+9
 homepage: https://github.com/Press-One/prs_lib_dart
 
 environment:
@@ -9,7 +9,7 @@ environment:
 dependencies: 
   flutter:
     sdk: flutter 
-  prs_utility_dart: ^0.1.0
+  prs_utility_dart: ^0.1.0+1
   dio: ^3.0.8
   http: ^0.12.0+4
   event_bus: ^1.1.1
